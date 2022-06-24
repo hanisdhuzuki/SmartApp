@@ -16,7 +16,8 @@ deviceask:		.asciiz	" Select a device by entering a number.  \n\t 1. 5Gwifi \n\t
 
 
 #Light section
-motiondetect:		.asciiz ". There is motion detected! \n \tThe light is switch on. "
+motiondetect:		.asciiz ". There is motion detected! \nThe light is ||ON||. "
+nomotiondetect:		.asciiz ". There is no motion detected! \nThe light is ||OFF||. "
 
 # temperature/AC section
 getTempMsg: .asciiz "Enter the current temperature (Celcius): "
