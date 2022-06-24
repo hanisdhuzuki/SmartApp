@@ -104,19 +104,24 @@ light:
 li	$t1,0
 motionin:
 	lb	$s1,motion($t1)
-	li	$v0,1							#to print integer
+	#to print the integer motion , 1. is motion detected, 0. is no motion detected
+	li	$v0,1							
 	addi	$a0,$s1,0
 	syscall
-	jal	PrintString						#to print string
+	li	$v0,4					
 	bge	$s1,1,detectmotion
 	bge	$s1,0,detectnomotion
 
-detectmotion:								#motion is detected
+	
+#Print action message when motion is detected, light will be switch on.	
+detectmotion:								
 	la	$a0,motiondetect
-	j	End
-detectnomotion:								#motion is detected
+	j	done
+	
+#Print action message when no motion is detected, light will be switch off.
+detectnomotion:								
 	la	$a0,motiondetect
-	j	End
+	j	done
 
 
 #--------------------------------------------
