@@ -100,7 +100,15 @@ detectmotion:								#motion is detected
 	j	End
 detectnomotion:								#motion is detected
 	la	$a0,motiondetect
-	j	done
+	j	End
+
+
+#--------------------------------------------
+# Smoke detector section
+#--------------------------------------------
+
+
+
 
 
 #--------------------------------------------
