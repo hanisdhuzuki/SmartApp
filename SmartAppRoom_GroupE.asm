@@ -7,7 +7,7 @@
 
 
 device:			.space 10  
-motion: 		.byte 1
+motion: 		.byte 1, 0
 
 
 welcome:		.asciiz	"____________________________ \n Hello, User! \n Welcome to Smart Room app! \n____________________________ \n" 
@@ -92,11 +92,14 @@ motionin:
 	syscall
 	jal	PrintString						#to print string
 	bge	$s1,1,detectmotion
+	bge	$s1,0,detectnomotion
 
 detectmotion:								#motion is detected
 	la	$a0,motiondetect
 	j	End
-
+detectnomotion:								#motion is detected
+	la	$a0,motiondetect
+	j	done
 
 
 #--------------------------------------------
