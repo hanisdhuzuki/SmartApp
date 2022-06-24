@@ -3,7 +3,7 @@
 # NURUL HANIS 1913364
 # AIN SHAHEADA 1920162
 
-	.data
+.data
 
 
 device:			.space 10  
@@ -20,11 +20,14 @@ motiondetect:		.asciiz ". There is motion detected! \nThe light is ||ON||. "
 nomotiondetect:		.asciiz ". There is no motion detected! \nThe light is ||OFF||. "
 
 # temperature/AC section
-getTempMsg: .asciiz "Enter the current temperature (Celcius): "
+getTempMsg1: .asciiz "Enter the current temperature (Celcius): "
 niceTempMsg: .asciiz "\nNice temperature! Have a great day.<3"
-hotTempMsg: .asciiz "Room temperature is hot!\n!!!MORE THAN 32 DEGREE CELCIUS!!!\n\t<<---AC ||ON|| --->>\n\tEnter your desired temperature:"
+getTempMsg2: .asciiz "\tRoom temperature is hot!\n\t!!!MORE THAN (or and equal to) 32 DEGREE CELCIUS!!!\n\t<<---AC ||ON|| --->>\n\tEnter your desired temperature (<32 degree Celcius):"
+
+#smoke
 
 .text
+
 #--------------------------------------------
 # selection screen
 #--------------------------------------------
@@ -49,33 +52,46 @@ syscall
 
 TemperatureDetector:
 	# Print out "Enter the current temperature (Celcius): "
-	la	$a0, getTempMsg
+	la	$a0, getTempMsg1
 	jal	PrintString
 
-togetTemp1:	
+inputTemp1:	
 	#Get the current temperature from the user.
 	#syscall read integer
 	li	$v0,5
 	syscall
 	addi	$s1,$v0,0  #s1 has the user input
+
+
+	#alerting the temperature input; hot or nice temperature to switch on AC.
 	
-	#alerting the temperature input, hot or nice temperature to switch on AC.
-	bgt	$s1,31,getDesiredTemp #(input is >=32)
-	la	$a0,hotTempMsg
+	#if  temperature <32,
+	#Print out a message string with the message "Nice temperature! Have a great day.<3"
+	ble	$s1,31,inputNiceTemp #(input is <32)
+	
+hotTemp:
+	bge	$s1,32,getDesiredTemp #(input is >=32)
+	la	$a0,getTempMsg2
 	jal	PrintString
-	j	togetTemp1
+	j	inputTemp1
 	
 getDesiredTemp:
    	blt	$s1,32,inputNiceTemp #(input is <32)
-	la	$a0,hotTempMsg
+   	la	$a0,getTempMsg2
 	jal	PrintString
-	j	togetTemp1
+	j	inputTemp2
 
+inputTemp2:
+	#Get the desired temperature from the user.
+	#syscall read integer
+	li	$v0,5
+	syscall
+	addi	$s2,$v0,0  #s2 has the user 
+	
 inputNiceTemp:
 	#Print out a message string with the message "Nice temperature! Have a great day.<3"
 	la	$a0,niceTempMsg
 	jal	PrintString
-	
 
 
 
