@@ -62,13 +62,13 @@ inputTemp1:
 	syscall
 	addi	$s1,$v0,0  #s1 has the user input
 
-
 	#alerting the temperature input; hot or nice temperature to switch on AC.
 	
 	#if  temperature <32,
 	#Print out a message string with the message "Nice temperature! Have a great day.<3"
 	ble	$s1,31,inputNiceTemp #(input is <32)
 	
+	#if  temperature >=32,
 hotTemp:
 	bge	$s1,32,getDesiredTemp #(input is >=32)
 	la	$a0,getTempMsg2
@@ -86,7 +86,7 @@ inputTemp2:
 	#syscall read integer
 	li	$v0,5
 	syscall
-	addi	$s2,$v0,0  #s2 has the user 
+	addi	$s2,$v0,0  #s2 has the new user input
 	
 inputNiceTemp:
 	#Print out a message string with the message "Nice temperature! Have a great day.<3"
