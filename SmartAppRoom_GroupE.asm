@@ -4,28 +4,36 @@
 # AIN SHAHEADA 1920162
 
 .data
-
-
-device:			.space 10  
-motion: 		.byte 1, 0
-
+#--------------------------------------------
 #selection screen
+
 welcome:		.asciiz	"____________________________ \n Hello, User! \n Welcome to Smart Room app! \n____________________________ \n" 
 deviceask:		.asciiz	" \n\nSelect a device by entering a number.  \n\n\t 1. Air Conditioner \n\t 2. Light Bulb \n\t 3. Fire Alarm \n\n ENTER A NUMBER (1/2/3) : "
 connection:		.asciiz "Wifi connection? (Y/N): "
 wrongMsg:		.asciiz "\n\n\t\<<----!!!!!!		INVALID		!!!!!!---->\n\t\<<----!!!!!!	ENTER THE INPUT AGAIN	!!!!!!---->"
-
+#--------------------------------------------
 #Light section
+
+motion: 		.byte 1, 0
 motiondetect:		.asciiz ". There is motion detected! \nThe light is ||ON||. "
 nomotiondetect:		.asciiz ". There is no motion detected! \nThe light is ||OFF||. "
-
+#--------------------------------------------
 # temperature/AC section
+
 getTempMsg1: 		.asciiz "Enter the current temperature (Celcius): "
 niceTempMsg: 		.asciiz "\nNice temperature! Have a great day.<3"
 getTempMsg2: 		.asciiz "\tRoom temperature is hot!\n\t!!!MORE THAN (or and equal to) 32 DEGREE CELCIUS!!!\n\t<<---AC ||ON|| --->>\n\tEnter your desired temperature (<32 degree Celcius):"
 
-#smoke
-getSmoke:		.asciiz "Smoke? (Y/N): "
+#--------------------------------------------
+#Fire Alarm section
+
+gasvalue: 		.byte 250
+alertON:	.asciiz "\n\t------------------------------------------\n\t\t\t WARNING!!!! \n\t\t GAS VALUE IS HIGH!!!!! \n\n \t\t<<--- BUZZER ||ON|| --->>\n\t\t<<--- LED ||ON|| ---> \n\t ------------------------------------------\n"
+alertOFF:	.asciiz "\n\t------------------------------------------\n\ \n\t\t GAS VALUE IS NORMAL \n\n \t\t<<--- BUZZER ||OFF|| --->>\n\t\t<<--- LED ||OFF|| ---> \n\t ------------------------------------------\n"
+askalarm:	.asciiz "\n\t------------------------------------------\n\ \n\t\t TURN OFF ALARM? \n\t\t  Enter number 1, for turn off alarm, enter number 2, to not turn off the alarm  \n\t ------------------------------------------\n"
+alarmOFF:	.asciiz "\n\t-----------------------------\n\ \n\t ALARM OFF  \n\t -----------------------------\n"
+noturnoffalarm: .asciiz "\n\t-----------------------------\n\ \n\t ALARM ON  \n\t -----------------------------\n"
+#--------------------------------------------
 
 
 .text
@@ -165,20 +173,6 @@ detectnomotion:
 #--------------------------------------------
 # Smoke detector section
 #--------------------------------------------
-
-#Fire Alarm section
-
-.data
-gasvalue: 	.byte 250
-
-
-
-alertON:	.asciiz "\n\t------------------------------------------\n\t\t\t WARNING!!!! \n\t\t GAS VALUE IS HIGH!!!!! \n\n \t\t<<--- BUZZER ||ON|| --->>\n\t\t<<--- LED ||ON|| ---> \n\t ------------------------------------------\n"
-alertOFF:	.asciiz "\n\t------------------------------------------\n\ \n\t\t GAS VALUE IS NORMAL \n\n \t\t<<--- BUZZER ||OFF|| --->>\n\t\t<<--- LED ||OFF|| ---> \n\t ------------------------------------------\n"
-askalarm:	.asciiz "\n\t------------------------------------------\n\ \n\t\t TURN OFF ALARM? \n\t\t  Enter number 1, for turn off alarm, enter number 2, to not turn off the alarm  \n\t ------------------------------------------\n"
-alarmOFF:	.asciiz "\n\t-----------------------------\n\ \n\t ALARM OFF  \n\t -----------------------------\n"
-noturnoffalarm: .asciiz "\n\t-----------------------------\n\ \n\t ALARM ON  \n\t -----------------------------\n"
-.text
 
 firealarm:
 
