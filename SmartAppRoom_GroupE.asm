@@ -11,7 +11,7 @@ motion: 		.byte 1, 0
 
 
 welcome:		.asciiz	"____________________________ \n Hello, User! \n Welcome to Smart Room app! \n____________________________ \n" 
-deviceask:		.asciiz	" Select a device by entering a number.  \n\t 1. 5Gwifi \n\t 2. Ain's Iphone \n ENTER THE NUMBER : "
+deviceask:		.asciiz	" Select a device by entering a number.  \n\t 1. Air Conditioner \n\t 2. Lamp \n\t 3. Fire Alarm \n ENTER THE NUMBER : "
 
 
 
