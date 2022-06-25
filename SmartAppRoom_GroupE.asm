@@ -165,12 +165,73 @@ detectnomotion:
 #--------------------------------------------
 # Smoke detector section
 #--------------------------------------------
-smokeDetector:
-	la	$a0, getSmoke
-	jal	PrintString
+
+#Fire Alarm section
+
+.data
+gasvalue: 	.byte 250
 
 
 
+alertON:	.asciiz "\n\t------------------------------------------\n\t\t\t WARNING!!!! \n\t\t GAS VALUE IS HIGH!!!!! \n\n \t\t<<--- BUZZER ||ON|| --->>\n\t\t<<--- LED ||ON|| ---> \n\t ------------------------------------------\n"
+alertOFF:	.asciiz "\n\t------------------------------------------\n\ \n\t\t GAS VALUE IS NORMAL \n\n \t\t<<--- BUZZER ||OFF|| --->>\n\t\t<<--- LED ||OFF|| ---> \n\t ------------------------------------------\n"
+askalarm:	.asciiz "\n\t------------------------------------------\n\ \n\t\t TURN OFF ALARM? \n\t\t  Enter number 1, for turn off alarm, enter number 2, to not turn off the alarm  \n\t ------------------------------------------\n"
+alarmOFF:	.asciiz "\n\t-----------------------------\n\ \n\t ALARM OFF  \n\t -----------------------------\n"
+noturnoffalarm: .asciiz "\n\t-----------------------------\n\ \n\t ALARM ON  \n\t -----------------------------\n"
+.text
+
+firealarm:
+
+#Input for gas value
+	li	$t1,0
+smokein:
+	lb	$s1,gasvalue($t1)
+	#to print the integer smoke value
+	li	$v0,1							
+	addi	$a0,$s1,0
+	syscall
+	li	$v0,4	
+				
+	bge	$s1,300,highgasvalue 	#If gas value higher or equal 300 
+ 	blt 	$s1,300,lowgasvalue	#If gas value lower than 300
+		
+
+#Print action message when gas value is high
+highgasvalue:	
+							
+	la	$a0,alertON
+	j	askturnoffalarm
+	
+	
+#Ask user if they want to turn off the alarm 
+askturnoffalarm:	
+	la	$a0,askalarm
+	
+	
+	
+yesoffalarm:	
+	#syscall read integer
+	li	$v0,5
+	syscall
+	addi	$s1,$v0,0 
+	
+	#if  user enter 1, message will display
+	ble	$s1,2,turnoffalarm 
+	
+turnoffalarm:	
+	la	$a0,alarmOFF
+	
+	
+nooffalarm:
+	beq	$s1,2,noturnoffalarm
+	j	End
+	
+#Print action message when gas value is low	
+lowgasvalue:	
+							
+	la	$a0,alertOFF
+	j	End
+	
 
 #--------------------------------------------
 	
