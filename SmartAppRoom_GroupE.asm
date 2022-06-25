@@ -116,12 +116,12 @@ motionin:
 #Print action message when motion is detected, light will be switch on.	
 detectmotion:								
 	la	$a0,motiondetect
-	j	done
+	j	End
 	
 #Print action message when no motion is detected, light will be switch off.
 detectnomotion:								
 	la	$a0,motiondetect
-	j	done
+	j	End
 
 
 #--------------------------------------------
