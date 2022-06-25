@@ -142,8 +142,8 @@ motionin:
 	addi	$a0,$s1,0
 	syscall
 	li	$v0,4					
-	bge	$s1,1,detectmotion
-	bge	$s1,0,detectnomotion
+	beq	$s1,1,detectmotion
+	beq	$s1,0,detectnomotion
 
 	
 #Print action message when motion is detected, light will be switch on.	
